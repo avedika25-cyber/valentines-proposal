@@ -6,73 +6,83 @@
     <title>Valentine's Proposal</title>
     <style>
         body {
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            animation: fadeIn 1.5s;
             font-family: Arial, sans-serif;
-            text-align: center;
-            background: #f8f9fa;
-            margin: 0;
-            padding: 0;
         }
+
         h1 {
-            color: #ff4081;
-            margin-top: 50px;
+            text-align: center;
+            color: #fff;
+            animation: slideIn 1s;
         }
-        .gradient-button {
-            background: linear-gradient(45deg, #ff6ab6, #ff4181);
+
+        .button {
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
             border: none;
             border-radius: 25px;
             color: white;
-            font-size: 20px;
             padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition: background 0.3s, transform 0.3s;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
         }
-        .gradient-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+
+        .button:hover {
+            background: linear-gradient(to right, #feb47b, #ff7e5f);
+            transform: scale(1.05);
         }
-        .flying {
-            animation: fly 1s forwards;
+
+        .no-button {
+            background: red;
+            border-radius: 50%;
+            color: white;
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            right: 50%;
+            bottom: 10%;
+            transition: transform 0.3s;
         }
+
+        .no-button:hover {
+            transform: scale(1.2);
+            animation: fly 1s linear infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
         @keyframes fly {
             0% { transform: translateY(0); }
-            100% { transform: translateY(-100vh) rotate(360deg); }
-        }
-        .heart {
-            position: relative;
-            display: inline-block;
-        }
-        .heart::before, .heart::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            width: 50px;
-            height: 80px;
-            border-radius: 50px;
-            background: #ff4081;
-        }
-        .heart::before {
-            left: 50px;
-            transform: rotate(-45deg);
-        }
-        .heart::after {
-            left: 0;
-            transform: rotate(45deg);
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0); }
         }
     </style>
 </head>
 <body>
     <h1>Will You Be My Valentine?</h1>
-    <button class="gradient-button" onclick="flyAway(this)">NO</button>
-    <div class="heart"></div>
+    <button class="button">Yes</button>
+    <button class="no-button">NO</button>
+    <div id="success-page" style="display: none;">
+        <h2>Yay! You're my Valentine!</h2>
+    </div>
+
     <script>
-        function flyAway(btn) {
-            btn.classList.add('flying');
-            setTimeout(function() {
-                // Optionally handle what happens after the button is animated
-                alert('Okay, maybe next time!');
-            }, 1000);
-        }
+        document.querySelector('.button').addEventListener('click', function() {
+            document.getElementById('success-page').style.display = 'block';
+        });
     </script>
 </body>
 </html>
