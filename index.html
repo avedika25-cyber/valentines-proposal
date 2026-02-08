@@ -6,83 +6,99 @@
     <title>Valentine's Proposal</title>
     <style>
         body {
-            background: linear-gradient(to right, #ff7e5f, #feb47b);
-            animation: fadeIn 1.5s;
+            background: linear-gradient(to bottom, #ff69b4, #ff1493);
             font-family: Arial, sans-serif;
-        }
-
-        h1 {
             text-align: center;
-            color: #fff;
-            animation: slideIn 1s;
+            color: white;
+            overflow: hidden;
         }
-
+        .hidden {
+            display: none;
+        }
+        .message {
+            margin-top: 20%;
+            font-size: 2em;
+        }
         .button {
-            background: linear-gradient(to right, #ff7e5f, #feb47b);
-            border: none;
-            border-radius: 25px;
-            color: white;
             padding: 15px 30px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            transition: background 0.3s, transform 0.3s;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
+            transition: all 0.3s;
         }
-
-        .button:hover {
-            background: linear-gradient(to right, #feb47b, #ff7e5f);
-            transform: scale(1.05);
+        .continue {
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
         }
-
+        .continue:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transform: translateY(-2px);
+        }
         .no-button {
-            background: red;
-            border-radius: 50%;
-            color: white;
-            width: 50px;
-            height: 50px;
             position: absolute;
-            right: 50%;
-            bottom: 10%;
-            transition: transform 0.3s;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 20px;
+            background: #ff1493;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
         }
-
         .no-button:hover {
-            transform: scale(1.2);
-            animation: fly 1s linear infinite;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes fly {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0); }
+            transform: translate(-50%, -50%) translateY(-10px);
         }
     </style>
 </head>
 <body>
-    <h1>Will You Be My Valentine?</h1>
-    <button class="button">Yes</button>
-    <button class="no-button">NO</button>
-    <div id="success-page" style="display: none;">
-        <h2>Yay! You're my Valentine!</h2>
-    </div>
 
-    <script>
-        document.querySelector('.button').addEventListener('click', function() {
-            document.getElementById('success-page').style.display = 'block';
-        });
-    </script>
+<div id="intro-screen">
+    <h1>Do you love surprises?</h1>
+    <button class="button continue" onclick="nextStep()">Continue</button>
+</div>
+
+<div id="message-screen" class="hidden">
+    <p class="message">Falling for you was the best decision I ever made</p>
+    <h2 class="message">WILL YOU BE MY VALENTINE?</h2>
+    <button class="button continue" onclick="success()">Yes</button>
+    <button class="no-button" onclick="flyAway()">No</button>
+</div>
+
+<div id="success-screen" class="hidden">
+    <h1>Yay! You said yes!</h1>
+    <div class="hearts">
+        <!-- Animated hearts here -->
+    </div>
+</div>
+
+<div id="error-screen" class="hidden">
+    <h1>Error!</h1>
+    <p>Something went wrong. Please try again.</p>
+    <button class="button continue" onclick="retry()">Retry</button>
+</div>
+
+<script>
+    function nextStep() {
+        document.getElementById('intro-screen').classList.add('hidden');
+        document.getElementById('message-screen').classList.remove('hidden');
+    }
+
+    function success() {
+        document.getElementById('message-screen').classList.add('hidden');
+        document.getElementById('success-screen').classList.remove('hidden');
+    }
+
+    function retry() {
+        document.getElementById('error-screen').classList.add('hidden');
+        document.getElementById('intro-screen').classList.remove('hidden');
+    }
+
+    function flyAway() {
+        const noButton = document.querySelector('.no-button');
+        noButton.style.transition = 'all 1s';
+        noButton.style.transform = 'translate(-300%, -300%)';
+    }
+</script>
 </body>
 </html>
