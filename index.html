@@ -5,100 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valentine's Proposal</title>
     <style>
-        body {
-            background: linear-gradient(to bottom, #ff69b4, #ff1493);
-            font-family: Arial, sans-serif;
-            text-align: center;
-            color: white;
-            overflow: hidden;
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .button { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; transition: transform 0.3s; }
+        .yes { background: linear-gradient(to right, #ff7e5f, #feb47b); color: white; }
+        .no { background: linear-gradient(to right, #ff758c, #ff7eb3); color: white; }
+        .heart { display: none; font-size: 100px; animation: heartbeat 1s infinite; }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
-        .hidden {
-            display: none;
-        }
-        .message {
-            margin-top: 20%;
-            font-size: 2em;
-        }
-        .button {
-            padding: 15px 30px;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .continue {
-            background: linear-gradient(45deg, #ff1493, #ff69b4);
-        }
-        .continue:hover {
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            transform: translateY(-2px);
-        }
-        .no-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 10px 20px;
-            background: #ff1493;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .no-button:hover {
-            transform: translate(-50%, -50%) translateY(-10px);
+        .fly-away { animation: flyAway 1s forwards; }
+        @keyframes flyAway {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-200px); opacity: 0; }
         }
     </style>
 </head>
 <body>
-
-<div id="intro-screen">
-    <h1>Do you love surprises?</h1>
-    <button class="button continue" onclick="nextStep()">Continue</button>
-</div>
-
-<div id="message-screen" class="hidden">
-    <p class="message">Falling for you was the best decision I ever made</p>
-    <h2 class="message">WILL YOU BE MY VALENTINE?</h2>
-    <button class="button continue" onclick="success()">Yes</button>
-    <button class="no-button" onclick="flyAway()">No</button>
-</div>
-
-<div id="success-screen" class="hidden">
-    <h1>Yay! You said yes!</h1>
-    <div class="hearts">
-        <!-- Animated hearts here -->
+    <div id="intro-screen">
+        <h1>Do you love surprises?</h1>
+        <button class="button yes" onclick="showMessageScreen()">YES</button>
+        <button class="button no" onclick="flyAway(this)">NO</button>
     </div>
-</div>
 
-<div id="error-screen" class="hidden">
-    <h1>Error!</h1>
-    <p>Something went wrong. Please try again.</p>
-    <button class="button continue" onclick="retry()">Retry</button>
-</div>
+    <div id="message-screen" style="display:none;">
+        <h2>Get Ready for a Surprise!</h2>
+        <button class="button yes" onclick="showProposalScreen()">Continue</button>
+    </div>
 
-<script>
-    function nextStep() {
-        document.getElementById('intro-screen').classList.add('hidden');
-        document.getElementById('message-screen').classList.remove('hidden');
-    }
+    <div id="proposal-screen" style="display:none;">
+        <h1>WILL YOU BE MY VALENTINE?</h1>
+        <button class="button yes" onclick="showSuccessScreen()">Yes!</button>
+        <button class="button no" onclick="flyAway(this)">No!</button>
+        <div class="heart" id="heart">❤️</div>
+    </div>
 
-    function success() {
-        document.getElementById('message-screen').classList.add('hidden');
-        document.getElementById('success-screen').classList.remove('hidden');
-    }
+    <div id="success-screen" style="display:none;">
+        <h2>Yay! You're my Valentine!</h2>
+        <div class="heart" id="heart-success">❤️❤️❤️</div>
+    </div>
 
-    function retry() {
-        document.getElementById('error-screen').classList.add('hidden');
-        document.getElementById('intro-screen').classList.remove('hidden');
-    }
+    <script>
+        function showMessageScreen() {
+            document.getElementById('intro-screen').style.display = 'none';
+            document.getElementById('message-screen').style.display = 'block';
+        }
 
-    function flyAway() {
-        const noButton = document.querySelector('.no-button');
-        noButton.style.transition = 'all 1s';
-        noButton.style.transform = 'translate(-300%, -300%)';
-    }
-</script>
+        function showProposalScreen() {
+            document.getElementById('message-screen').style.display = 'none';
+            document.getElementById('proposal-screen').style.display = 'block';
+        }
+
+        function showSuccessScreen() {
+            document.getElementById('proposal-screen').style.display = 'none';
+            document.getElementById('success-screen').style.display = 'block';
+            document.getElementById('heart-success').style.display = 'block';
+        }
+
+        function flyAway(button) {
+            button.classList.add('fly-away');
+            setTimeout(() => { button.style.display = 'none'; }, 1000);
+        }
+    </script>
 </body>
 </html>
