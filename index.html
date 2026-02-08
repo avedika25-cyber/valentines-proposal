@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Proposal</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #ff69b4, #ff1493);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: all 0.5s ease;
+        }
+        .container {
+            max-width: 600px;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .big-message {
+            font-size: 1.8em;
+            line-height: 1.5;
+            margin: 20px 0;
+            animation: fadeIn 1s;
+        }
+        button {
+            background-color: #fff;
+            color: #ff1493;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #ffe4e1;
+        }
+        .error {
+            color: #ff0000;
+            font-size: 1.5em;
+            animation: shake 0.5s;
+        }
+        .hearts {
+            font-size: 3em;
+            animation: bounce 1s infinite;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="initial">
+            <h1>Do you love surprises?</h1>
+            <button id="yes1">Yes</button>
+            <button id="no1">No</button>
+        </div>
+        <div id="message1" class="hidden">
+            <p class="big-message">Falling for you was the best decision I ever made. I love you so much! Grab the ticket to my Valentine's this year! 💕</p>
+            <button id="next">Continue</button>
+        </div>
+        <div id="valentine" class="hidden">
+            <h1>WILL YOU BE MY VALENTINE?</h1>
+            <button id="yes2">YES</button>
+            <button id="no2">NO</button>
+        </div>
+        <div id="error" class="hidden">
+            <p class="error">Oops! That's not the right choice. Try again? 😢</p>
+            <button id="retry">Retry</button>
+        </div>
+        <div id="success" class="hidden">
+            <p class="big-message">Yay! You said yes! I love you endlessly! ❤️</p>
+            <div class="hearts">💖💖💖</div>
+        </div>
+    </div>
+
+    <script>
+        // Elements
+        const initial = document.getElementById('initial');
+        const message1 = document.getElementById('message1');
+        const valentine = document.getElementById('valentine');
+        const error = document.getElementById('error');
+        const success = document.getElementById('success');
+
+        // Buttons
+        document.getElementById('yes1').addEventListener('click', () => {
+            initial.classList.add('hidden');
+            message1.classList.remove('hidden');
+        });
+        document.getElementById('no1').addEventListener('click', () => {
+            initial.classList.add('hidden');
+            error.classList.remove('hidden');
+        });
+        document.getElementById('next').addEventListener('click', () => {
+            message1.classList.add('hidden');
+            valentine.classList.remove('hidden');
+        });
+        document.getElementById('yes2').addEventListener('click', () => {
+            valentine.classList.add('hidden');
+            success.classList.remove('hidden');
+        });
+        document.getElementById('no2').addEventListener('click', () => {
+            valentine.classList.add('hidden');
+            error.classList.remove('hidden');
+        });
+        document.getElementById('retry').addEventListener('click', () => {
+            error.classList.add('hidden');
+            initial.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
